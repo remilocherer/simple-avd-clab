@@ -64,23 +64,23 @@ topology:
       kind: linux
 
   links:
-  # leaf to spine1
-  - endpoints: ["leaf1a:eth55", "spine1:eth1"]
-  - endpoints: ["leaf1b:eth55", "spine1:eth2"]
-  - endpoints: ["leaf2a:eth55", "spine1:eth3"]
-  - endpoints: ["leaf2b:eth55", "spine1:eth4"]
-  # leaf to spine2
-  - endpoints: ["leaf1a:eth56", "spine2:eth1"]
-  - endpoints: ["leaf1b:eth56", "spine2:eth2"]
-  - endpoints: ["leaf2a:eth56", "spine2:eth3"]
-  - endpoints: ["leaf2b:eth56", "spine2:eth4"]
-  # leaf to leaf
-  - endpoints: ["leaf1a:eth49", "leaf1b:eth49"]
-  - endpoints: ["leaf1a:eth50", "leaf1b:eth50"]
-  - endpoints: ["leaf2a:eth49", "leaf2b:eth49"]
-  - endpoints: ["leaf2a:eth50", "leaf2b:eth50"]
-  # host to leaf
-  - endpoints: ["host1:eth1", "leaf1a:eth1"]
-  - endpoints: ["host1:eth2", "leaf1b:eth1"]
-  - endpoints: ["host2:eth1", "leaf2a:eth1"]
-  - endpoints: ["host2:eth2", "leaf2b:eth1"]
+    # leaf to spine1
+    - endpoints: [ "leaf1a:eth55", "spine1:eth1" ]
+    - endpoints: [ "leaf1b:eth55", "spine1:eth2" ]
+    - endpoints: [ "leaf2a:eth55", "spine1:eth3" ]
+    - endpoints: [ "leaf2b:eth55", "spine1:eth4" ]
+    # leaf to spine2
+    - endpoints: [ "leaf1a:eth56", "spine2:eth1" ]
+    - endpoints: [ "leaf1b:eth56", "spine2:eth2" ]
+    - endpoints: [ "leaf2a:eth56", "spine2:eth3" ]
+    - endpoints: [ "leaf2b:eth56", "spine2:eth4" ]
+    # leaf to leaf
+    - endpoints: [ "leaf1a:eth49", "leaf1b:eth49" ]
+    - endpoints: [ "leaf1a:eth50", "leaf1b:eth50" ]
+    - endpoints: [ "leaf2a:eth49", "leaf2b:eth49" ]
+    - endpoints: [ "leaf2a:eth50", "leaf2b:eth50" ]
+    # host to leaf
+    - endpoints: [ "host1:eth1", "leaf1a:eth1" ]
+    - endpoints: [ "host1:eth2", "leaf1b:eth1" ]
+    - endpoints: [ "host2:eth1", "leaf2a:eth1" ]
+    - endpoints: [ "host2:eth2", "leaf2b:eth1" ]
