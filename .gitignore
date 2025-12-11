@@ -1,0 +1,17 @@
+# ignore clab files
+clab-*
+*.bak
+
+# ingnore images and other files not to be uploaded to GitHub
+.gitignored/*
+!.gitignored/.gitkeep
+
+# ignore AVD generated files and ansible.log
+avd/ansible.log
+avd/documentation
+avd/intended
+avd/reports
+avd/config_backup
+
+# mac stuff
+.DS_Store

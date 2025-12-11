@@ -1,0 +1,12 @@
+{
+  "image": "ghcr.io/aristanetworks/aclabs/lab-base:python3.11-avd-v5.7.2-clab0.72.0-rev2.5.2",
+  "onCreateCommand": "docker import  /workspaces/*/.gitignored/cEOS*-lab*.tar ceos-lab:latest"
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "srl-labs.vscode-containerlab"
+      ]
+    }
+  }
+}
+

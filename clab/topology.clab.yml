@@ -1,0 +1,86 @@
+name: dc1
+prefix: ""
+
+mgmt:
+  network: custom_mgmt
+  ipv4-subnet: 192.168.0.0/24
+
+topology:
+  kinds:
+    arista_ceos:
+      #enforce-startup-config: true
+      image: ceos-lab:latest
+      env:
+        CLAB_MGMT_VRF: MGMT
+    linux:
+      image: alpine:3.23
+
+  defaults:
+    kind: arista_ceos
+    # startup-config: init-configs/ceos-init.cfg
+    # extras:
+    #   ceos-copy-to-flash:
+    #     - clab/cv-onboarding-token
+    # an alternative to ceos-copy-to-flash could be bind
+    # keeping the bind settings here just in case
+    # binds:
+    #   - cv-onboarding-token:/mnt/flash/cv-onboarding-token:ro
+  nodes:
+    spine1:
+      mgmt-ipv4: 192.168.0.11
+      binds:
+        - eos-inft-mappings/DCS-7050CX3-32C.json:/mnt/flash/EosIntfMapping.json:ro
+        - eos-sns/spine1.cfg:/mnt/flash/ceos-config:ro
+    spine2:
+      mgmt-ipv4: 192.168.0.12
+      binds:
+        - eos-inft-mappings/DCS-7050CX3-32C.json:/mnt/flash/EosIntfMapping.json:ro
+        - eos-sns/spine2.cfg:/mnt/flash/ceos-config:ro
+    leaf1a:
+      mgmt-ipv4: 192.168.0.20
+      binds:
+        - eos-inft-mappings/DCS-7280SR3-48YC8.json:/mnt/flash/EosIntfMapping.json:ro
+        - eos-sns/leaf1a.cfg:/mnt/flash/ceos-config:ro
+    leaf1b:
+      mgmt-ipv4: 192.168.0.21
+      binds:
+        - eos-inft-mappings/DCS-7280SR3-48YC8.json:/mnt/flash/EosIntfMapping.json:ro
+        - eos-sns/leaf1b.cfg:/mnt/flash/ceos-config:ro
+    leaf2a:
+      mgmt-ipv4: 192.168.0.22
+      binds:
+        - eos-inft-mappings/DCS-7280SR3-48YC8.json:/mnt/flash/EosIntfMapping.json:ro
+        - eos-sns/leaf2a.cfg:/mnt/flash/ceos-config:ro
+    leaf2b:
+      mgmt-ipv4: 192.168.0.23
+      binds:
+        - eos-inft-mappings/DCS-7280SR3-48YC8.json:/mnt/flash/EosIntfMapping.json:ro
+        - eos-sns/leaf2b.cfg:/mnt/flash/ceos-config:ro
+    host1:
+      mgmt-ipv4: 192.168.0.101
+      kind: linux
+    host2:
+      mgmt-ipv4: 192.168.0.102
+      kind: linux
+
+  links:
+  # leaf to spine1
+  - endpoints: ["leaf1a:eth55", "spine1:eth1"]
+  - endpoints: ["leaf1b:eth55", "spine1:eth2"]
+  - endpoints: ["leaf2a:eth55", "spine1:eth3"]
+  - endpoints: ["leaf2b:eth55", "spine1:eth4"]
+  # leaf to spine2
+  - endpoints: ["leaf1a:eth56", "spine2:eth1"]
+  - endpoints: ["leaf1b:eth56", "spine2:eth2"]
+  - endpoints: ["leaf2a:eth56", "spine2:eth3"]
+  - endpoints: ["leaf2b:eth56", "spine2:eth4"]
+  # leaf to leaf
+  - endpoints: ["leaf1a:eth49", "leaf1b:eth49"]
+  - endpoints: ["leaf1a:eth50", "leaf1b:eth50"]
+  - endpoints: ["leaf2a:eth49", "leaf2b:eth49"]
+  - endpoints: ["leaf2a:eth50", "leaf2b:eth50"]
+  # host to leaf
+  - endpoints: ["host1:eth1", "leaf1a:eth1"]
+  - endpoints: ["host1:eth2", "leaf1b:eth1"]
+  - endpoints: ["host2:eth1", "leaf2a:eth1"]
+  - endpoints: ["host2:eth2", "leaf2b:eth1"]
